@@ -1,4 +1,3 @@
-# NumeralSystems
 Exercises from book "Fundamentals of Computer Programming with C#" Exercise 8: Numeral Systems
 
 1. Convert the numbers 151, 35, 43, 251, 1023 and 1024 to the binary 
@@ -36,7 +35,7 @@ and addition (not direct multiplication). Try it with float and double and
 after that with decimal. Do you notice the huge difference in the 
 results and speed of calculation? Explain what happens. 
 
-15. * Write a program that prints the value of the mantissa, the sign of the 
+15. \* Write a program that prints the value of the mantissa, the sign of the 
 mantissa and exponent in float numbers (32-bit numbers with a 
 floating-point according to the IEEE 754 standard). Example: for the 
 number -27.25 should be printed: sign = 1, exponent = 10000011, 
