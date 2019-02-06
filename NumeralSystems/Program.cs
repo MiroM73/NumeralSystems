@@ -193,9 +193,71 @@ namespace NumeralSystems
             Console.WriteLine("{0} in bin = {1} in dec", consoleInputEx5, binToDecResult);
 
             EndOfScript();
+            
             //6.Write a program that converts a decimal number to hexadecimal one.
+            Console.WriteLine("EX6: Converts a decimal number to hexadecimal.");
+            Console.Write("Enter decimal number: ");
+            string consoleInputEx6 = Console.ReadLine();
+            bool consoleInputEx6IsNumber = decimal.TryParse(consoleInputEx6, out decimal consoleInputParseToDecimal);
+
+            if (consoleInputEx6IsNumber)
+            {
+                string decToHexResult = "";
+                string[] conversionTableEx6 = ("0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F").Split(new char[] { ',' }); //convert numbers 0 .. 15 to string
+                decimal decToHexTmp = consoleInputParseToDecimal;
+
+                while (decToHexTmp > 0)
+                {
+                    //use an appropriate string from the array "conversionTable" by index and add it to the top of the result string
+                    decToHexResult = decToHexResult.Insert(0, conversionTableEx6[(int)(decToHexTmp % 16)]);
+                    decToHexTmp = Math.Floor(decToHexTmp / 16);
+                }
+                Console.WriteLine("{0} in dec = {1} in hex", consoleInputEx6, decToHexResult);
+            }
+            else
+            {
+                Console.WriteLine("{0} is not a hex number!!!", consoleInputEx6);
+            }
+
+            EndOfScript();            
 
             //7.Write a program that converts a hexadecimal number to decimal one. 
+            Console.WriteLine("EX7: Converts a hexadecimal number to a decimal.");
+            Console.Write("Enter hexadecimal number: ");
+            string inputConsoleHex = (Console.ReadLine()).ToUpper(); //convert input to upper, because conversion table contains characters in upper format
+            Int64 hexToDecResult = 0;
+            bool isHexNumber = true;
+            string invalidCharacter = "";
+            int invalidCharacterIndex = 0;            
+
+            string[] conversionTableEx7 = ("0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F").Split(new char[] { ',' }); //convert numbers 0 .. 15 to string
+            for (int i = 0; i < inputConsoleHex.Length; i++)
+            {
+                int indexOfString = Array.IndexOf(conversionTableEx7, inputConsoleHex.Substring(i, 1));
+                if (indexOfString >= 0)
+                {
+                    hexToDecResult += indexOfString * (Int64)Math.Pow(16, inputConsoleHex.Length - i - 1);
+                }
+                else
+                {
+                    isHexNumber = false;
+                    invalidCharacter = inputConsoleHex.Substring(i, 1);
+                    invalidCharacterIndex = i + 1;
+                    break;
+                }                
+            }
+
+            if (isHexNumber)
+            {
+                Console.WriteLine("{0} in hex = {1} in dec", inputConsoleHex, hexToDecResult);
+            }
+            else
+            {
+                Console.WriteLine("{0} is not hex number!!! Invalid char {1} at position {2} " +
+                    "from left.", inputConsoleHex, invalidCharacter, invalidCharacterIndex);
+            }
+
+            EndOfScript();
 
             //8.Write a program that converts a hexadecimal number to binary one. 
 
