@@ -224,20 +224,29 @@ namespace NumeralSystems
             //7.Write a program that converts a hexadecimal number to decimal one. 
             Console.WriteLine("EX7: Converts a hexadecimal number to a decimal.");
             Console.Write("Enter hexadecimal number: ");
-            string inputConsoleHex = (Console.ReadLine()).ToUpper(); //convert input to upper, because conversion table contains characters in upper format
+            //convert input to upper, "conversionTable" contains characters in upper format
+            string inputConsoleHex = (Console.ReadLine()).ToUpper();
             Int64 hexToDecResult = 0;
             bool isHexNumber = true;
             string invalidCharacter = "";
-            int invalidCharacterIndex = 0;            
+            int invalidCharacterIndex = 0;
+            //conversion table / array
+            //the decimal value of every possible hexa character is expressed by its position / index in the array 
+            string[] conversionTableEx7 = ("0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F").Split(new char[] { ',' });
 
-            string[] conversionTableEx7 = ("0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F").Split(new char[] { ',' }); //convert numbers 0 .. 15 to string
+            //go through an every character of the entered hexa number
             for (int i = 0; i < inputConsoleHex.Length; i++)
             {
+                //find index of character in "conversionTable"
                 int indexOfString = Array.IndexOf(conversionTableEx7, inputConsoleHex.Substring(i, 1));
-                if (indexOfString >= 0)
+                //if the index for the character exists (index must be integer in range 0 .. 15)
+                if (indexOfString >= 0 && indexOfString < 16)
                 {
+                    //calculate a value for character at position i
+                    //(value of character) * 16^(position of char from right and from zero)
                     hexToDecResult += indexOfString * (Int64)Math.Pow(16, inputConsoleHex.Length - i - 1);
                 }
+                //the index of the character doesn't exist
                 else
                 {
                     isHexNumber = false;
@@ -253,8 +262,8 @@ namespace NumeralSystems
             }
             else
             {
-                Console.WriteLine("{0} is not hex number!!! Invalid char {1} at position {2} " +
-                    "from left.", inputConsoleHex, invalidCharacter, invalidCharacterIndex);
+                Console.WriteLine("{0} is not a hexadecimal number!!! Invalid char {1} at position {2} " +
+                    "from the left side.", inputConsoleHex, invalidCharacter, invalidCharacterIndex);
             }
 
             EndOfScript();
