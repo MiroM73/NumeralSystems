@@ -51,15 +51,15 @@ namespace NumeralSystems
 
             //1.Convert the numbers 151, 35, 43, 251, 1023 and 1024 to the binary numeral system.
             Console.WriteLine("EX1: Convert the numbers 151, 35, 43, 251, 1023 and 1024 to the binary numeral system.");
-            int[] numbersToConvert = { 151, 35, 43, 251, 1023, 1024 };            
+            int[] numbersToConvert = { 151, 35, 43, 251, 1023, 1024 };
             for (int i = 0; i < numbersToConvert.Length; i++)
             {
                 int numberToConvert = numbersToConvert[i];
                 string result = "";
                 while (numberToConvert > 0)
                 {
-                    result = result.Insert(0,(numberToConvert % 2).ToString());
-                    numberToConvert = numberToConvert / 2;                    
+                    result = result.Insert(0, (numberToConvert % 2).ToString());
+                    numberToConvert = numberToConvert / 2;
                 }
                 Console.WriteLine("{0} = {1}", numbersToConvert[i], result);
             }
@@ -93,17 +93,17 @@ namespace NumeralSystems
                 resultHex = resultHex.Insert(0, conversionTable[(int)(resultDecTmp % 16)]);
                 resultDecTmp = Math.Floor(resultDecTmp / 16);
             }
-            
+
             Console.WriteLine("Bin number {0} equal {1} in hex.", binNumber, resultHex);
 
             EndOfScript();
-            
+
             // 3.Convert the hexadecimal numbers FA, 2A3E, FFFF, 5A0E9 to binary and decimal numeral systems.
             Console.WriteLine("EX3: Convert the hexadecimal numbers FA, 2A3E, FFFF, 5A0E9 to binary and decimal numeral systems.");
             string[] inputHexaNumbers = { "FA", "2A3E", "FFFF", "5A0E9" };
             string[] conversionTableHexToDec = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F".Split(new char[] { ',' }); //convert numbers 0 .. 15 to string            
             string[] conversionTableHexToBin = "0000,0001,0010,0011,0100,0101,0110,0111,1000,1001,1010,1011,1100,1101,1110,1111".Split(new char[] { ',' });
-            
+
             foreach (var inputHexNumber in inputHexaNumbers)
             {
                 //convert hexa to dec
@@ -118,9 +118,9 @@ namespace NumeralSystems
                     // 2 * 16^3 -> 16^3 -> value 2 has position 3 in the hex number 2A3E, 
                     //position is counted from right to left and start with zero
                     // A(10) * 16^2 -> value A is second so 16^2 ...
-                    resultDecEx3 += 
-                        Array.IndexOf(conversionTableHexToDec, inputHexNumber.Substring(i, 1)) * 
-                        Math.Pow(16,inputHexNumber.Length - i - 1);
+                    resultDecEx3 +=
+                        Array.IndexOf(conversionTableHexToDec, inputHexNumber.Substring(i, 1)) *
+                        Math.Pow(16, inputHexNumber.Length - i - 1);
                 }
                 Console.WriteLine("Hex number {0} equal {1} in dec.", inputHexNumber, resultDecEx3);
 
@@ -144,7 +144,7 @@ namespace NumeralSystems
 
             }
             EndOfScript();
-            
+
             //4.Write a program that converts a decimal number to binary one.
             Console.WriteLine("EX4: Convert a positive decimal number to binary.");
             Console.Write("Enter positive decimal number: ");
@@ -174,7 +174,7 @@ namespace NumeralSystems
             Console.WriteLine("EX5: Converts a binary number to a decimal.");
             Console.Write("Enter binary number: ");
             string consoleInputEx5 = Console.ReadLine();
-            decimal binToDecResult = 0;
+            ulong binToDecResult = 0;
             bool isNumber = false;
 
             for (int i = 0; i < consoleInputEx5.Length; i++)
@@ -182,7 +182,7 @@ namespace NumeralSystems
                 isNumber = int.TryParse(consoleInputEx5.Substring(i, 1), out int consoleInputParseNumber);
                 if (isNumber && (consoleInputParseNumber == 0 || consoleInputParseNumber == 1))
                 {
-                    binToDecResult += (decimal)(consoleInputParseNumber * Math.Pow(2, consoleInputEx5.Length - i - 1));
+                    binToDecResult += (ulong)(consoleInputParseNumber * Math.Pow(2, consoleInputEx5.Length - i - 1));
                 }
                 else
                 {
@@ -193,7 +193,7 @@ namespace NumeralSystems
             Console.WriteLine("{0} in bin = {1} in dec", consoleInputEx5, binToDecResult);
 
             EndOfScript();
-            
+
             //6.Write a program that converts a decimal number to hexadecimal one.
             Console.WriteLine("EX6: Converts a decimal number to hexadecimal.");
             Console.Write("Enter decimal number: ");
@@ -219,14 +219,14 @@ namespace NumeralSystems
                 Console.WriteLine("{0} is not a hex number!!!", consoleInputEx6);
             }
 
-            EndOfScript();            
+            EndOfScript();
 
             //7.Write a program that converts a hexadecimal number to decimal one. 
             Console.WriteLine("EX7: Converts a hexadecimal number to a decimal.");
             Console.Write("Enter hexadecimal number: ");
             //convert input to upper, "conversionTable" contains characters in upper format
             string inputConsoleHex = (Console.ReadLine()).ToUpper();
-            Int64 hexToDecResult = 0;
+            ulong hexToDecResult = 0;
             bool isHexNumber = true;
             string invalidCharacter = "";
             int invalidCharacterIndex = 0;
@@ -244,7 +244,7 @@ namespace NumeralSystems
                 {
                     //calculate a value for character at position i
                     //(value of character) * 16^(position of char from right and from zero)
-                    hexToDecResult += indexOfString * (Int64)Math.Pow(16, inputConsoleHex.Length - i - 1);
+                    hexToDecResult += (ulong)(indexOfString * Math.Pow(16, inputConsoleHex.Length - i - 1));
                 }
                 //the index of the character doesn't exist
                 else
@@ -253,7 +253,7 @@ namespace NumeralSystems
                     invalidCharacter = inputConsoleHex.Substring(i, 1);
                     invalidCharacterIndex = i + 1;
                     break;
-                }                
+                }
             }
 
             if (isHexNumber)
@@ -267,13 +267,98 @@ namespace NumeralSystems
             }
 
             EndOfScript();
+            
 
             //8.Write a program that converts a hexadecimal number to binary one. 
+            Console.WriteLine("EX8: Converts a hexadecimal number to binary.");
+            Console.Write("Enter hexa number: ");
+            string consoleInputHexNumber = Console.ReadLine().ToUpper();
+            string binResult = "";
+            bool inputIsHexNumber = true;
+            string[] arrayHexChars = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F".Split(new char[] { ',' });
+            string[] arrayHexToBin = ("0000,0001,0010,0011,0100,0101,0110,0111," +
+                                      "1000,1001,1010,1011,1100,1101,1110,1111").Split(new char[] { ',' });
+            for (int i = 0; i < consoleInputHexNumber.Length; i++)
+            {
+                int indexOfHexChar = Array.IndexOf(arrayHexChars, consoleInputHexNumber.Substring(i, 1));
+                if (indexOfHexChar >= 0)
+                {
+                    binResult += arrayHexToBin[indexOfHexChar];
+                }
+                else
+                {
+                    inputIsHexNumber = false;
+                    Console.WriteLine("{0} is not hex number!!! Value {1} at position {2} " +
+                        "from left side is invalid", consoleInputHexNumber, consoleInputHexNumber.Substring(i, 1), i + 1);
+                    break;
+                }
+            }
+            if (inputIsHexNumber)
+            {
+                Console.WriteLine("{0} in hex = {1} in bin", consoleInputHexNumber, binResult);
+            }
 
+            EndOfScript();
+            
             //9.Write a program that converts a binary number to hexadecimal one. 
+            Console.WriteLine("EX9: Converts a binary number to hexadecimal.");
+            Console.Write("Enter binary number: ");
+            string consoleInputBinNumber = Console.ReadLine();            
+            string hexResult = "";
+            bool inputIsBinNumber = true;
+            string[] arrayHexCharsEx9 = "0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F".Split(new char[] { ',' });
+            string[] arrayBinStringsEx9 = ("0000,0001,0010,0011,0100,0101,0110,0111," +
+                                      "1000,1001,1010,1011,1100,1101,1110,1111").Split(new char[] { ',' });
+            //check if the count of the bits in the bin number is divided by 4 (no remainder)
+            //if not, add the zeros to the top of the input bin number so that the count of the bits will be divided by 4 (no remainder)
+            if (consoleInputBinNumber.Length % 4 != 0)
+            {                
+                consoleInputBinNumber = consoleInputBinNumber.Insert(0, new String('0', consoleInputBinNumber.Length % 4));             
+            }            
+
+            //go through the input and select 4-bits parts                        
+            for (int i = 0; i < consoleInputBinNumber.Length; i += 4)
+            {
+                //for every part (4-bits starting from left) find index in the array arrayBinStrings
+                int indexOfBinString = Array.IndexOf(arrayBinStringsEx9, consoleInputBinNumber.Substring(i, 4));
+                //if index exists
+                if (indexOfBinString >= 0)
+                {
+                    //the finded index is used to select the value from the array arrayHexChars and attach it to the result string
+                    hexResult += arrayHexCharsEx9[indexOfBinString];
+                }
+                //if index does not exist
+                else
+                {
+                    inputIsBinNumber = false;
+                    Console.WriteLine("{0} is not hex number!!! 4-bits {1} at position {2} " +
+                        "from left side are invalid", consoleInputBinNumber, consoleInputBinNumber.Substring(i, 4), i + 1);
+                    break;
+                }
+            }
+            if (inputIsBinNumber)
+            {
+                Console.WriteLine("{0} in bin = {1} in hex", consoleInputBinNumber, hexResult);
+            }
+
+            EndOfScript();
 
             //10.Write a program that converts a binary number to decimal using the Horner scheme.
+            Console.WriteLine("EX10: Converts a binary number to decimal using the Horner scheme / algorithm.");
+            Console.Write("Enter binary number: ");
+            string inputBinConsole = Console.ReadLine();            
+            ulong binToDecResultEx10 = 1;
+                       
+            for (int i = 0; i < inputBinConsole.Length - 1; i++)
+            {
+                //example how to use Horner scheme
+                //1001 = ((1 × 2 + 0) × 2 + 0) × 2 + 1 = 2 × 2 × 2 + 1 = 9 
+                int nextBinNumber = int.Parse(inputBinConsole.Substring(i + 1, 1));
+                binToDecResultEx10 = binToDecResultEx10 * 2 + (ulong)nextBinNumber;
+            }
+            Console.WriteLine("{0} in bin = {1} in dec", inputBinConsole, binToDecResultEx10);
 
+            EndOfScript();
             //11.Write a program that converts Roman digits to Arabic ones.
 
             //12.Write a program that converts Arabic digits to Roman ones.
