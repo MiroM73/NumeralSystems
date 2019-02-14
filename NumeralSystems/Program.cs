@@ -311,12 +311,16 @@ namespace NumeralSystems
                                       "1000,1001,1010,1011,1100,1101,1110,1111").Split(new char[] { ',' });
             //check if the count of the bits in the bin number is divided by 4 (no remainder)
             //if not, add the zeros to the top of the input bin number so that the count of the bits will be divided by 4 (no remainder)
-            if (consoleInputBinNumber.Length % 4 != 0)
+            if (consoleInputBinNumber.Length < 4)
+            {
+                consoleInputBinNumber = consoleInputBinNumber.Insert(0, new String('0', 4 - consoleInputBinNumber.Length));
+            }
+            if (consoleInputBinNumber.Length % 4 != 0 && consoleInputBinNumber.Length > 4)
             {                
                 consoleInputBinNumber = consoleInputBinNumber.Insert(0, new String('0', consoleInputBinNumber.Length % 4));             
-            }            
+            }
 
-            //go through the input and select 4-bits parts                        
+            //go through the input and select 4-bits parts             
             for (int i = 0; i < consoleInputBinNumber.Length; i += 4)
             {
                 //for every part (4-bits starting from left) find index in the array arrayBinStrings
@@ -424,7 +428,27 @@ namespace NumeralSystems
 
             EndOfScript();
 
-            //12.Write a program that converts Arabic digits to Roman ones.
+            //12.Write a program that converts Arabic digits to Roman ones.            
+            Console.WriteLine("EX12: Program that converts Arabic digits to Roman ones.");
+            Console.Write("Enter number from 1 to 3999: ");
+            string inputConsole = Console.ReadLine();
+            
+            string[][] romanNumbers = {
+                new string[] { "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX" },
+                new string[] { "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC" },
+                new string[] { "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM" },
+                new string[] { "M", "MM", "MMM" }
+            };
+                        
+            string resultInRoman = "";
+
+            for (int i = 0, j = inputConsole.Length - 1; i < inputConsole.Length; i++, j--)
+            {
+                int inputNumber = int.Parse(inputConsole.Substring(j, 1));
+                resultInRoman = resultInRoman.Insert(0, romanNumbers[i][inputNumber - 1]);
+            }
+            Console.WriteLine("{0} in Arabic = {1} in Roman", inputConsole, resultInRoman);
+            EndOfScript();
 
             //13.Write a program that by given N, S, D (2 ≤ S, D ≤ 16) converts the number
             //N from an S-based numeral system to a D based numeral system. 
